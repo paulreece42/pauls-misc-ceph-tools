@@ -1,0 +1,451 @@
+{
+    "__inputs": [
+      {
+        "name": "DS_PROMETHEUS",
+        "label": "prometheus",
+        "description": "",
+        "type": "datasource",
+        "pluginId": "prometheus",
+        "pluginName": "Prometheus"
+      }
+    ],
+    "__elements": {},
+    "__requires": [
+      {
+        "type": "panel",
+        "id": "gauge",
+        "name": "Gauge",
+        "version": ""
+      },
+      {
+        "type": "grafana",
+        "id": "grafana",
+        "name": "Grafana",
+        "version": "11.1.3"
+      },
+      {
+        "type": "datasource",
+        "id": "prometheus",
+        "name": "Prometheus",
+        "version": "1.0.0"
+      },
+      {
+        "type": "panel",
+        "id": "timeseries",
+        "name": "Time series",
+        "version": ""
+      }
+    ],
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": null,
+    "links": [],
+    "panels": [
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 0
+        },
+        "id": 1,
+        "options": {
+          "legend": {
+            "calcs": [
+              "lastNotNull",
+              "min",
+              "max",
+              "mean",
+              "delta"
+            ],
+            "displayMode": "table",
+            "placement": "right",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "editorMode": "code",
+            "expr": "cephfs_custom_files_count / cephfs_custom_files_quota < 2",
+            "instant": false,
+            "legendFormat": "Files Quota - {{path}}",
+            "range": true,
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "editorMode": "code",
+            "expr": "cephfs_custom_bytes_size / cephfs_custom_bytes_quota < 2",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "Bytes Quota - {{path}}",
+            "range": true,
+            "refId": "B"
+          }
+        ],
+        "title": "Quota by Percent",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 0
+        },
+        "id": 2,
+        "options": {
+          "minVizHeight": 75,
+          "minVizWidth": 75,
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "sizing": "auto"
+        },
+        "pluginVersion": "11.1.3",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "editorMode": "code",
+            "expr": "cephfs_custom_files_count / cephfs_custom_files_quota < 2",
+            "instant": false,
+            "legendFormat": "Files Quota - {{path}}",
+            "range": true,
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "editorMode": "code",
+            "expr": "cephfs_custom_bytes_size / cephfs_custom_bytes_quota < 2",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "Bytes Quota - {{path}}",
+            "range": true,
+            "refId": "B"
+          }
+        ],
+        "title": "Quota by Percent (Dials)",
+        "type": "gauge"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "bytes"
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "cephfs_custom_bytes_quota"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "dark-red",
+                    "mode": "shades"
+                  }
+                },
+                {
+                  "id": "custom.fillOpacity",
+                  "value": 10
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "cephfs_custom_bytes_size"
+              },
+              "properties": [
+                {
+                  "id": "color",
+                  "value": {
+                    "fixedColor": "dark-green",
+                    "mode": "fixed"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 8
+        },
+        "id": 3,
+        "options": {
+          "legend": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": true
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "editorMode": "code",
+            "expr": "cephfs_custom_bytes_size{path=~\"$path\"}",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "Bytes Size - {{path}}",
+            "range": true,
+            "refId": "B"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "${DS_PROMETHEUS}"
+            },
+            "editorMode": "code",
+            "expr": "cephfs_custom_bytes_quota{path=~\"$path\"}",
+            "hide": false,
+            "instant": false,
+            "legendFormat": "Bytes Quota - {{path}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "Bytes Quota by Bytes",
+        "type": "timeseries"
+      }
+    ],
+    "refresh": "",
+    "schemaVersion": 39,
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "allValue": "",
+          "current": {},
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "definition": "label_values(cephfs_custom_bytes_size,path)",
+          "description": "cephfs_custom_bytes_size",
+          "hide": 0,
+          "includeAll": true,
+          "label": "path",
+          "multi": false,
+          "name": "path",
+          "options": [],
+          "query": {
+            "qryType": 1,
+            "query": "label_values(cephfs_custom_bytes_size,path)",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-6h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "browser",
+    "title": "CephFS Quotas",
+    "uid": "cerbsob5qby80f",
+    "version": 12,
+    "weekStart": ""
+  }

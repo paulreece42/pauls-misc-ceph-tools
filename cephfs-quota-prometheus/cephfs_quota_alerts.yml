@@ -1,0 +1,40 @@
+      - alert: "CephFSBytesQuotaWarning"
+        annotations:
+          description: "CephFS filesystem is likely to exceed its size quota, soon"
+          documentation: "addme"
+          summary: "CephFS filesystem is likely to exceed its size quota, soon"
+        expr: "predict_linear(cephfs_custom_bytes_size[2d], 3600 * 24 * 5) > cephfs_custom_bytes_quota"
+        for: "15m"
+        labels:
+          severity: "critical"
+          type: "ceph_default"
+      - alert: "CephFSFilesQuotaWarning"
+        annotations:
+          description: "CephFS filesystem is likely to exceed its filecount quota, soon"
+          documentation: "addme"
+          summary: "CephFS filesystem is likely to exceed its size filecount, soon"
+        expr: "predict_linear(cephfs_custom_files_count[2d], 3600 * 24 * 5) > cephfs_custom_files_quota and cephfs_custom_files_quota > 0"
+        for: "15m"
+        labels:
+          severity: "critical"
+          type: "ceph_default"
+      - alert: "CephFSBytesQuotaStatic"
+        annotations:
+          description: "CephFS filesystem is over 95% of the way to quota"
+          documentation: "addme"
+          summary: "CephFS filesystem is over 95% of the way to quota"
+        expr: "(cephfs_custom_bytes_size / cephfs_custom_bytes_quota) > 0.95 and (cephfs_custom_bytes_size / cephfs_custom_bytes_quota) < 1000"
+        for: "1m"
+        labels:
+          severity: "critical"
+          type: "ceph_default"
+      - alert: "CephFSFilesQuotaStatic"
+        annotations:
+          description: "CephFS filesystem is over 95% of the way to filecount quota"
+          documentation: "addme"
+          summary: "CephFS filesystem is over 95% of the way to filecount quota"
+        expr: "(cephfs_custom_files_count / cephfs_custom_files_quota) > 0.95 and (cephfs_custom_files_count / cephfs_custom_files_quota) < 1000"
+        for: "1m"
+        labels:
+          severity: "critical"
+          type: "ceph_default"
